@@ -11,7 +11,7 @@ export const Header = (props: HeaderProps) => {
   return (
     <header className="header">
       <h1>
-        Su<span className="header__group-one">do</span><span className="header__group-two">ku</span>
+        Sucky<span className="header__group-one">Do</span><span className="header__group-two">Do</span>
       </h1>
       <h2 onClick={props.onClick}>
         New Game

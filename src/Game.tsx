@@ -6,10 +6,13 @@ import { StatusSection } from './components/layout/StatusSection';
 import { Footer } from './components/layout/Footer';
 import { getUniqueSudoku } from './solver/UniqueSudoku';
 import { useSudokuContext } from './context/SudokuContext';
+import { Timer } from './components//Timer';
+
 
 /**
  * Game is the main React component.
  */
+
 export const Game: React.FC<{}> = () => {
   /**
    * All the variables for holding state:
@@ -38,6 +41,8 @@ export const Game: React.FC<{}> = () => {
   let [ history, setHistory ] = useState<string[][]>([]);
   let [ solvedArray, setSolvedArray ] = useState<string[]>([]);
   let [ overlay, setOverlay ] = useState<boolean>(false);
+  let [currentTime, setCurrentTime] = useState(moment());
+  let { timeGameStarted, won } = useSudokuContext();
 
   /**
    * Creates a new game and initializes the state variables.
@@ -99,6 +104,9 @@ export const Game: React.FC<{}> = () => {
    * _fillCell function above.
    */
   function _userFillCell(index: number, value: string) {
+    
+
+
     if (mistakesMode) {
       if (value === solvedArray[index]) {
         _fillCell(index, value);
@@ -107,7 +115,21 @@ export const Game: React.FC<{}> = () => {
         // TODO: Flash - Mistakes not allowed in Mistakes Mode
       }
     } else {
-      _fillCell(index, value);
+      if (value === solvedArray[index]) {
+        _fillCell(index, value);
+      }
+      else {
+          if(value<solvedArray[index]){
+            _fillCell(index, 'L');
+            
+            setTimeGameStarted(timeGameStarted.add(-20,'seconds'));
+          }
+          else{
+            _fillCell(index, 'H');
+          }
+
+        
+      }
     }
   }
 
@@ -246,7 +268,7 @@ export const Game: React.FC<{}> = () => {
            onClick={onClickOverlay}
       >
         <h2 className="overlay__text">
-          You <span className="overlay__textspan1">solved</span> <span className="overlay__textspan2">it!</span>
+          Winner Winner<span className="overlay__textspan1"> Chicken</span> <span className="overlay__textspan2">Dinner!</span>
         </h2>
       </div>
     </>
