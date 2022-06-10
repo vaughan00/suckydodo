@@ -6,7 +6,7 @@ import { StatusSection } from './components/layout/StatusSection';
 import { Footer } from './components/layout/Footer';
 import { getUniqueSudoku } from './solver/UniqueSudoku';
 import { useSudokuContext } from './context/SudokuContext';
-import { Timer } from './components//Timer';
+
 
 
 /**
@@ -41,8 +41,7 @@ export const Game: React.FC<{}> = () => {
   let [ history, setHistory ] = useState<string[][]>([]);
   let [ solvedArray, setSolvedArray ] = useState<string[]>([]);
   let [ overlay, setOverlay ] = useState<boolean>(false);
-  let [currentTime, setCurrentTime] = useState(moment());
-  let { timeGameStarted, won } = useSudokuContext();
+  let { timeGameStarted} = useSudokuContext();
 
   /**
    * Creates a new game and initializes the state variables.
